@@ -4,11 +4,23 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class name="de.dis2018.data.Person" table="person">
-		<id name="id" column="id">
+		<id name="id" column="person_id">
 			<generator class="native" />
 		</id>
 		<property name="firstname" type="string" column="firstname" />
 		<property name="name" type="string" column="name" />
 		<property name="address" type="string" column="address" />
+		
+		<set name="contractpartner" inverse="true">
+			<key column="purchasecontractpartner" />
+			<one-to-many class="de.dis2018.data.PurchaseContract" />
+		</set>
+	
+		<set name="contractpartner" inverse="true">
+			<key column="tenancycontractpartner" />
+			<one-to-many class="de.dis2018.data.TenancyContract" />
+		</set>
+		
+		
 	</class>
 </hibernate-mapping>
