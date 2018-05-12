@@ -1,6 +1,7 @@
 package de.dis2018.editor;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import de.dis2018.core.EstateService;
@@ -73,7 +74,7 @@ public class ContractEditor {
 	public void showContracts() {
 		//Show tenancy contracts
 		System.out.println("Tenancy contracts\n-----------------");
-		Set<TenancyContract> mvs = service.getAllTenancyContractsForEstateAgent(manager);
+		List<TenancyContract> mvs = service.getAllTenancyContractsForEstateAgent(manager);
 		Iterator<TenancyContract> itmv = mvs.iterator();
 		while(itmv.hasNext()) {
 			TenancyContract mv = itmv.next();
@@ -90,7 +91,7 @@ public class ContractEditor {
 		
 		//Show purchase contracts
 		System.out.println("Purchase contracts\n-----------------");
-		Set<PurchaseContract> kvs = service.getAllPurchaseContractsForEstateAgent(manager);
+		List<PurchaseContract> kvs = service.getAllPurchaseContractsForEstateAgent(manager);
 		Iterator<PurchaseContract> itkv = kvs.iterator();
 		while(itkv.hasNext()) {
 			PurchaseContract kv = itkv.next();
@@ -109,7 +110,7 @@ public class ContractEditor {
 	 */
 	public void newTenancyContract() {
 		//Find all the estate agent's apartments
-		Set<Apartment> apartments = service.getAllApartmentsForEstateAgent(manager);
+		List<Apartment> apartments = service.getAllApartmentsForEstateAgent(manager);
 		
 		//Selection menu for the apartments  
 		AppartmentSelectionMenu asm = new AppartmentSelectionMenu("Select apartment for contract", apartments);
@@ -118,7 +119,7 @@ public class ContractEditor {
 		//If no abort: Selection of the person
 		if(wid != AppartmentSelectionMenu.BACK) {
 			//Load all persons
-			Set<Person> personen = service.getAllPersons();
+			List<Person> personen = service.getAllPersons();
 			
 			//Menu to select the person
 			PersonSelectionMenu psm = new PersonSelectionMenu("Select person for contract", personen);
@@ -149,7 +150,7 @@ public class ContractEditor {
 	 */
 	public void newPurchaseContract() {
 		//Find all the estate agent's houses
-		Set<House> houses = service.getAllHousesForEstateAgent(manager);
+		List<House> houses = service.getAllHousesForEstateAgent(manager);
 		
 		//Selection menu for the House
 		HouseSelectionMenu asm = new HouseSelectionMenu("Select house for contract.", houses);
@@ -158,7 +159,7 @@ public class ContractEditor {
 		//If no abort: Selection of the person
 		if(hid != AppartmentSelectionMenu.BACK) {
 			//Load all persons
-			Set<Person> personen = service.getAllPersons();
+			List<Person> personen = service.getAllPersons();
 			
 			//Menu to select the person
 			PersonSelectionMenu psm = new PersonSelectionMenu("Select person for contract", personen);

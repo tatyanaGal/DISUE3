@@ -1,6 +1,7 @@
 package de.dis2018.menu;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import de.dis2018.data.Person;
@@ -11,7 +12,7 @@ import de.dis2018.data.Person;
 public class PersonSelectionMenu extends Menu {
 	public static final int BACK = -1;
 	
-	public PersonSelectionMenu(String title, Set<Person> personen) {
+	public PersonSelectionMenu(String title, List<Person> personen) {
 		super(title);
 		
 		Iterator<Person> it = personen.iterator();

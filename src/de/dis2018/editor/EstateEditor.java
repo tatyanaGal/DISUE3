@@ -1,5 +1,6 @@
 package de.dis2018.editor;
 
+import java.util.List;
 import java.util.Set;
 
 import de.dis2018.core.EstateService;
@@ -104,7 +105,7 @@ public class EstateEditor {
 	 */
 	public void editHouse() {
 		//Search all houses managed by the estate agent
-		Set<House> haeuser = service.getAllHousesForEstateAgent(manager);
+		List<House> haeuser = service.getAllHousesForEstateAgent(manager);
 		
 		//Selection menu for the house to be edited
 		HouseSelectionMenu hsm = new HouseSelectionMenu("List of managed houses", haeuser);
@@ -160,7 +161,7 @@ public class EstateEditor {
 	 */
 	public void deleteHouse() {
 		//Search all houses managed by the estate agent
-		Set<House> haeuser = service.getAllHousesForEstateAgent(manager);
+		List<House> haeuser = service.getAllHousesForEstateAgent(manager);
 		
 		//Selection menu for the house to be edited
 		HouseSelectionMenu hsm = new HouseSelectionMenu("List of managed houses", haeuser);
@@ -198,7 +199,7 @@ public class EstateEditor {
 	 */
 	public void editApartment() {
 		//Search all apartments managed by the estate agent
-		Set<Apartment> apartmenten = service.getAllApartmentsForEstateAgent(manager);
+		List<Apartment> apartmenten = service.getAllApartmentsForEstateAgent(manager);
 		
 		//Selection menu for the apartment to be edited
 		AppartmentSelectionMenu asm = new AppartmentSelectionMenu("List of managed apartments", apartmenten);
@@ -256,7 +257,7 @@ public class EstateEditor {
 	 */
 	public void deleteApartment() {
 		//Search all apartments managed by the estate agent
-		Set<Apartment> apartments = service.getAllApartmentsForEstateAgent(manager);
+		List<Apartment> apartments = service.getAllApartmentsForEstateAgent(manager);
 		
 		//Selection menu for the apartment to be edited
 		AppartmentSelectionMenu asm = new AppartmentSelectionMenu("List of managed apartments", apartments);
