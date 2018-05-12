@@ -4,7 +4,7 @@ import de.dis2018.util.Helper;
 
 
 /**
- * Apartment Bean
+ * Apartment Bean change 
  */
 public class Apartment extends Estate {
 	private int floor;
