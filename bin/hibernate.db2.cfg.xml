@@ -1,14 +1,14 @@
 <?xml version='1.0' encoding='utf-8'?>
 <!DOCTYPE hibernate-configuration PUBLIC
         "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
-        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 
 <hibernate-configuration>
 	<session-factory>
 		<property name="connection.driver_class">com.ibm.db2.jcc.DB2Driver</property>
 		<property name="connection.url">jdbc:db2://vsisls4.informatik.uni-hamburg.de:50001/VSISP</property>
-		<property name="connection.username">vsispXX</property>
-		<property name="connection.password">XXXXX</property>
+		<property name="connection.username">vsisp40</property>
+		<property name="connection.password">PHqeoqdv</property>
 
 		<property name="dialect">org.hibernate.dialect.DB2Dialect</property>
 		<property name="current_session_context_class">thread</property>
@@ -21,5 +21,10 @@
 		<mapping resource="de/dis2018/data/mapping/Person.hbm.xml" />
 		<mapping resource="de/dis2018/data/mapping/EstateAgent.hbm.xml" />
 		<mapping resource="de/dis2018/data/mapping/Estate.hbm.xml" />
+		<mapping resource="de/dis2018/data/mapping/Apartment.hbm.xml" />
+		<mapping resource="de/dis2018/data/mapping/House.hbm.xml" />
+		<mapping resource="de/dis2018/data/mapping/Person.hbm.xml" />
+		<mapping resource="de/dis2018/data/mapping/PurchaseContract.hbm.xml" />
+		<mapping resource="de/dis2018/data/mapping/TenancyContract.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>

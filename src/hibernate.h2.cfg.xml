@@ -44,6 +44,11 @@
 		<mapping resource="de/dis2018/data/mapping/Person.hbm.xml" />
 		<mapping resource="de/dis2018/data/mapping/EstateAgent.hbm.xml" />
 		<mapping resource="de/dis2018/data/mapping/Estate.hbm.xml" />
+		<mapping resource="de/dis2018/data/mapping/Apartment.hbm.xml" />
+		<mapping resource="de/dis2018/data/mapping/House.hbm.xml" />
+		<mapping resource="de/dis2018/data/mapping/Person.hbm.xml" />
+		<mapping resource="de/dis2018/data/mapping/PurchaseContract.hbm.xml" />
+		<mapping resource="de/dis2018/data/mapping/TenancyContract.hbm.xml" />
     </session-factory>
 
 </hibernate-configuration>

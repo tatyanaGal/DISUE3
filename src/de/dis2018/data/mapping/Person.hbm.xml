@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC
         "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class name="de.dis2018.data.Person" table="person">
 		<id name="id" column="person_id">
@@ -11,15 +11,7 @@
 		<property name="name" type="string" column="name" />
 		<property name="address" type="string" column="address" />
 		
-		<set name="contractpartner" inverse="true">
-			<key column="purchasecontractpartner" />
-			<one-to-many class="de.dis2018.data.PurchaseContract" />
-		</set>
-	
-		<set name="contractpartner" inverse="true">
-			<key column="tenancycontractpartner" />
-			<one-to-many class="de.dis2018.data.TenancyContract" />
-		</set>
+		
 		
 		
 	</class>
