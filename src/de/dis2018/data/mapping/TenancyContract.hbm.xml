@@ -10,7 +10,7 @@
 		<property name="startDate" type="Date" column="startDate" />
 		<property name="duration" type="int" column="duration" />
 		<property name="additionalCosts" type="int" column="additionalCosts" />
-		<property name="apartment" type="Apartment" column="apartment" />
+		<property name="apartment" type="Estate" column="apartment" />
 		
 		<many-to-one name="tenancycontractpartner" class="de.dis2018.data.Person" column="contractpartner" not-null="true" />
 		

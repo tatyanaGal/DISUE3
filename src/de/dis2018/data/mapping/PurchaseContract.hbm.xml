@@ -10,7 +10,7 @@
 	
 		<property name="noOfInstallments" type="int" column="noOfInstallments" />
 		<property name="intrestRate" type="int" column="intrestRate" />
-		<property name="house" type="House" column="house" />
+		<property name="house" type="Estate" column="house" />
 		
 		<many-to-one name="purchasecontractpartner" class="de.dis2018.data.Person" column="contractpartner" not-null="true" />
 		
