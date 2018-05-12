@@ -20,14 +20,14 @@
 		<union-subclass name="de.dis2018.data.PurchaseContract" table="purchasecontract">
 			<property name="noOfInstallments" type="int" column="noOfInstallments" />
 			<property name="intrestRate" type="int" column="intrestRate" />
-			<property name="house" type="House" column="house" />
+			<property name="house" type="Estate" column="house" />
 		</union-subclass>
 		
 		<union-subclass name="de.dis.2018.data.TenancyContract" table="tenancycontract">
 			<property name="startDate" type="Date" column="startDate" />
 			<property name="duration" type="int" column="duration" />
 			<property name="additionalCosts" type="int" column="additionalCosts" />
-			<property name="apartment" type="Apartment" column="apartment" />
+			<property name="apartment" type="Estate" column="apartment" />
 		</union-subclass>
 		
 		
