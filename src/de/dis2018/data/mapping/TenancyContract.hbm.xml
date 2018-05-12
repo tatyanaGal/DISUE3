@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="de.dis2018.data.TenancyContract" table="tenancycontract">
+		<id name="id" column="tenancycontract_id">
+			<generator class="native" />
+		</id>
+		<property name="startDate" type="Date" column="startDate" />
+		<property name="duration" type="int" column="duration" />
+		<property name="additionalCosts" type="int" column="additionalCosts" />
+		<property name="apartment" type="Apartment" column="apartment" />
+		
+		<many-to-one name="tenancycontractpartner" class="de.dis2018.data.Person" column="contractpartner" not-null="true" />
+		
+	</class>
+</hibernate-mapping>

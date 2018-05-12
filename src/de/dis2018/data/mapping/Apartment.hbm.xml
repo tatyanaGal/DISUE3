@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="de.dis2018.data.Apartment" table="apartment">
+		<id name="id" column="apartment_id">
+			<generator class="native" />
+		</id>
+		
+		<property name="floor" type="int" column="floor" />
+		<property name="rent" type="int" column="rent" />
+		<property name="rooms" type="int" column="rooms" />
+		<property name="balcony" type="boolean" column="balcony" />
+		<property name="kitchen" type="boolean" column="kitchen" />
+	</class>
+</hibernate-mapping>

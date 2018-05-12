@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="de.dis2018.data.Contract" table="contract">
+		<id name="id" column="contract_id">
+			<generator class="native" />
+		</id>
+		
+		<property name="contractNo" type="int" column="contractNo" />
+		<property name="date" type="Date" column="date" />
+		<property name="place" type="Place" column="place" />
+		<property name="currentID" type="int" column="currentID" />
+		<property name="id" type="int" column="id" />
+		<property name="contractPartner" type="Person" column="contractPartner" />
+		
+		<many-to-one name="contractpartner" class="de.dis2018.data.Person" column="contractpartner" not-null="true" />
+		
+		<union-subclass name="de.dis2018.data.PurchaseContract" table="purchasecontract">
+			<property name="noOfInstallments" type="int" column="noOfInstallments" />
+			<property name="intrestRate" type="int" column="intrestRate" />
+			<property name="house" type="House" column="house" />
+		</union-subclass>
+		
+		<union-subclass name="de.dis.2018.data.TenancyContract" table="tenancycontract">
+			<property name="startDate" type="Date" column="startDate" />
+			<property name="duration" type="int" column="duration" />
+			<property name="additionalCosts" type="int" column="additionalCosts" />
+			<property name="apartment" type="Apartment" column="apartment" />
+		</union-subclass>
+		
+		
+	</class>
+</hibernate-mapping>
