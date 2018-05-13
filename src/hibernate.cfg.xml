@@ -21,9 +21,7 @@
 		<mapping resource="de/dis2018/data/mapping/Person.hbm.xml" />
 		<mapping resource="de/dis2018/data/mapping/EstateAgent.hbm.xml" />
 		<mapping resource="de/dis2018/data/mapping/Estate.hbm.xml" />
-		
-	
-		<mapping resource="de/dis2018/data/mapping/Person.hbm.xml" />
+
 		
 		
 	</session-factory>

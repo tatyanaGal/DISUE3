@@ -9,11 +9,14 @@
 		</id>
 		<property name="name" type="string" column="name" />
 		<property name="address" type="string" column="address" />
-		<property name="login" type="string" column="login" />
+		<property name="login" type="string" column="login" unique="true" />
 		<property name="password" type="string" column="password" />
-	
-		<set name="estates" inverse="true">
-			<key column="manager" />
+
+		<set name="estates" table="Estate" inverse="true" lazy="true"
+			fetch="select">
+			<key>
+				<column name="manager" />
+			</key>
 			<one-to-many class="de.dis2018.data.Estate" />
 		</set>
 	</class>
