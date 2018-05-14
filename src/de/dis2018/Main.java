@@ -48,7 +48,7 @@ public class Main {
 		
 		//Test data
 		service.addTestData();
-		
+
 		//Processed input
 		while(true) {
 			int response = mainMenu.show();

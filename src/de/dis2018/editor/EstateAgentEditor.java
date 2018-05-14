@@ -100,6 +100,7 @@ public class EstateAgentEditor {
 			if(!new_password.equals(""))
 				m.setPassword(new_password);
 		}
+		
 	}
 	
 	/**
