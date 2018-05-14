@@ -60,10 +60,31 @@ public class PersonEditor {
 	 */
 	public void newPerson() {
 		Person p = new Person();
+		String answer;
+
+		answer = FormUtil.readString("Firstname");
+		// Check, ob die Eingabe leer ist
+		while (answer.isEmpty()) {
+			System.out.println("Die Eingabe kann nicht leer sein! Bitte versuchen Sie es erneut!");
+			answer = FormUtil.readString("Firstname");
+		}
+		p.setFirstname(answer);
 		
-		p.setFirstname(FormUtil.readString("Firstname"));
-		p.setName(FormUtil.readString("Name"));
-		p.setAddress(FormUtil.readString("Address"));
+		answer = FormUtil.readString("Lastname");
+		// Check, ob die Eingabe leer ist
+		while (answer.isEmpty()) {
+			System.out.println("Die Eingabe kann nicht leer sein! Bitte versuchen Sie es erneut!");
+			answer = FormUtil.readString("Lastname");
+		}
+		p.setName(answer);
+		
+		answer = FormUtil.readString("Address");
+		// Check, ob die Eingabe leer ist
+		while (answer.isEmpty()) {
+			System.out.println("Die Eingabe kann nicht leer sein! Bitte versuchen Sie es erneut!");
+			answer = FormUtil.readString("Address");
+		}
+		p.setAddress(answer);
 		service.addPerson(p);
 		
 		System.out.println(p.getFirstname()+" "+p.getName()+" with the ID "+p.getId()+" was created.");
@@ -95,6 +116,7 @@ public class PersonEditor {
 				p.setName(newName);
 			if(!newAddresss.equals(""))
 				p.setAddress(newAddresss);
+			service.updatePerson(p);
 		}
 	}
 	

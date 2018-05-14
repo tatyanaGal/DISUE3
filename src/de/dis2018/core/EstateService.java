@@ -128,6 +128,20 @@ public class EstateService {
 		session.save(ea);
 		session.getTransaction().commit();
 	}
+	
+	/**
+	 * Update an estate agent
+	 * 
+	 * @param ea
+	 *            The estate agent
+	 */
+	public void updateEstateAgent(EstateAgent ea) {
+		Session session = sessionFactory.getCurrentSession();
+		session.beginTransaction();
+		session.update(ea);
+		session.getTransaction().commit();
+		
+	}
 
 	/**
 	 * Deletes an estate agent
@@ -153,6 +167,20 @@ public class EstateService {
 		session.beginTransaction();
 		session.save(p);
 		session.getTransaction().commit();
+	}
+	
+	/**
+	 * Update an estate agent
+	 * 
+	 * @param p
+	 *            The person
+	 */
+	public void updatePerson(Person p) {
+		Session session = sessionFactory.getCurrentSession();
+		session.beginTransaction();
+		session.update(p);
+		session.getTransaction().commit();
+		
 	}
 
 	/**
@@ -192,6 +220,20 @@ public class EstateService {
 		session.save(h);
 		session.getTransaction().commit();
 	}
+	
+	/**
+	 * Update an estate
+	 * 
+	 * @param h
+	 *            The house or apartment
+	 */
+	public void updateEstate(Estate e) {
+		Session session = sessionFactory.getCurrentSession();
+		session.beginTransaction();
+		session.update(e);
+		session.getTransaction().commit();
+		
+	}
 
 	/**
 	 * Returns all houses of an estate agent
@@ -221,7 +263,8 @@ public class EstateService {
 		session.beginTransaction();
 		@SuppressWarnings("unchecked")
 		List<House> houses = (List<House>) session
-				.createQuery("FROM House h JOIN Estate e ON h.id = e.id WHERE e.manager := manager")
+				.createQuery("FROM House h JOIN Estate e ON h.id = e.id WHERE e.manager =:manager")
+				//.createQuery("from House h JOIN h.manager man WHERE man.manager =: manager")
 				.setParameter("manager", ea.getId()).list();
 		session.getTransaction().commit();
 		return houses;
@@ -297,7 +340,7 @@ public class EstateService {
 		session.beginTransaction();
 		@SuppressWarnings("unchecked")
 		List<Apartment> apartments = (List<Apartment>) session
-				.createQuery("FROM Apartment a JOIN Estate e ON a.id = e.id WHERE e.manager := manager")
+				.createQuery("FROM Apartment a JOIN Estate e ON a.id = e.id WHERE e.manager =:manager")
 				.setParameter("manager", ea.getId()).list();
 		session.getTransaction().commit();
 		return apartments;
@@ -432,7 +475,7 @@ public class EstateService {
 		session.beginTransaction();
 		@SuppressWarnings("unchecked")
 		List<TenancyContract> tenancies = (List<TenancyContract>) session
-				.createQuery("from Contract c join Estate e on c.apartment=e.id where e.manager := manager")
+				.createQuery("from Contract c join Estate e on c.apartment=e.id where e.manager =:manager")
 				.setParameter("manager", ea.getId()).list();
 		session.getTransaction().commit();
 		return tenancies;
@@ -460,7 +503,7 @@ public class EstateService {
 		session.beginTransaction();
 		@SuppressWarnings("unchecked")
 		List<PurchaseContract> purchases = (List<PurchaseContract>) session
-				.createQuery("from Contract c join Estate e on c.house=e.id where e.manager := manager")
+				.createQuery("from Contract c join Estate e on c.house=e.id where e.manager =:manager")
 				.setParameter("manager", ea.getId()).list();
 		session.getTransaction().commit();
 		return purchases;

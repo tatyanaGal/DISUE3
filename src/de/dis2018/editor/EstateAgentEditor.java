@@ -10,109 +10,142 @@ import de.dis2018.util.FormUtil;
  * Class for the menus for managing estates
  */
 public class EstateAgentEditor {
-	///Estate service, to be used
+	/// Estate service, to be used
 	private EstateService service;
-	
+
 	public EstateAgentEditor(EstateService service) {
 		this.service = service;
 	}
-	
+
 	/**
 	 * Shows the estate agent management
 	 */
 	public void showEstateAgentMenu() {
-		//Menu options
+		// Menu options
 		final int NEW_ESTATE_AGENT = 0;
 		final int EDIT_ESTATE_AGENT = 1;
 		final int DELETE_ESTATE_AGENT = 2;
 		final int BACK = 3;
-		
-		//Estate agent management menu
+
+		// Estate agent management menu
 		Menu maklerMenu = new Menu("Estate Agent Management");
 		maklerMenu.addEntry("New Estate Agent", NEW_ESTATE_AGENT);
 		maklerMenu.addEntry("Edit Estate Agent", EDIT_ESTATE_AGENT);
 		maklerMenu.addEntry("Delete Estate Agent", DELETE_ESTATE_AGENT);
 		maklerMenu.addEntry("Back to Main Menu", BACK);
-		
-		//Process input
-		while(true) {
+
+		// Process input
+		while (true) {
 			int response = maklerMenu.show();
-			
-			switch(response) {
-				case NEW_ESTATE_AGENT:
-					newEstateAgent();
-					break;
-				case EDIT_ESTATE_AGENT:
-					editEstateAgent();
-					break;
-				case DELETE_ESTATE_AGENT:
-					deleteEstateAgent();
-					break;
-				case BACK:
-					return;
+
+			switch (response) {
+			case NEW_ESTATE_AGENT:
+				newEstateAgent();
+				break;
+			case EDIT_ESTATE_AGENT:
+				editEstateAgent();
+				break;
+			case DELETE_ESTATE_AGENT:
+				deleteEstateAgent();
+				break;
+			case BACK:
+				return;
 			}
 		}
 	}
-	
+
 	/**
-	 *  Creates a new estate agent after the 
-	 *  user has entered the corresponding data.
+	 * Creates a new estate agent after the user has entered the corresponding data.
 	 */
 	public void newEstateAgent() {
 		EstateAgent m = new EstateAgent();
-		
-		m.setName(FormUtil.readString("Name"));
-		m.setAddress(FormUtil.readString("Address"));
-		m.setLogin(FormUtil.readString("Login"));
-		m.setPassword(FormUtil.readString("Password"));
+		String answer;
+
+		answer = FormUtil.readString("Name");
+		// Check, ob die Eingabe leer ist
+		while (answer.isEmpty()) {
+			System.out.println("Die Eingabe kann nicht leer sein! Bitte versuchen Sie es erneut!");
+			answer = FormUtil.readString("Name");
+		}
+		m.setName(answer);
+
+		answer = FormUtil.readString("Address");
+		// Check, ob die Eingabe leer ist
+		while (answer.isEmpty()) {
+			System.out.println("Die Eingabe kann nicht leer sein! Bitte versuchen Sie es erneut!");
+			answer = FormUtil.readString("Address");
+		}
+		m.setAddress(answer);
+
+		answer = FormUtil.readString("Login");
+		// Check, ob die Eingabe leer ist
+		while (answer.isEmpty() || service.getEstateAgentByLogin(answer) != null) {
+			System.out.println(
+					"Die Eingabe kann nicht leer sein oder das Login wird berets benutzt! Bitte versuchen Sie es erneut!");
+			answer = FormUtil.readString("Login");
+		}
+		m.setLogin(answer);
+
+		answer = FormUtil.readString("Password");
+		// Check, ob die Eingabe leer ist
+		while (answer.isEmpty()) {
+			System.out.println("Die Eingabe kann nicht leer sein! Bitte versuchen Sie es erneut!");
+			answer = FormUtil.readString("Password");
+		}
+		m.setPassword(answer);
 		service.addEstateAgent(m);
-		
-		System.out.println("Estate agent with ID "+m.getId()+" was created.");
+
+		System.out.println("Estate agent with ID " + m.getId() + " was created.");
 	}
-	
+
 	/**
 	 * Edits a estate agent after the user has selected it
 	 */
 	public void editEstateAgent() {
-		//Menu for selecting the estate agent
+		// Menu for selecting the estate agent
 		Menu maklerSelectionMenu = new EstateAgentSelectionMenu("Edit estate agent", service.getAllEstateAgents());
 		int id = maklerSelectionMenu.show();
-		
-		//If not selected "back", edit estate agent
-		if(id != EstateAgentSelectionMenu.BACK) {
-			//Load estate agent
+
+		// If not selected "back", edit estate agent
+		if (id != EstateAgentSelectionMenu.BACK) {
+			// Load estate agent
 			EstateAgent m = service.getEstateAgentByID(id);
-			System.out.println("Estate agent "+m.getName()+"  is being edited. Empty fields remain unchanged.");
-			
-			//Get the new data
-			String new_name = FormUtil.readString("Name ("+m.getName()+")");
-			String new_address = FormUtil.readString("Addresss ("+m.getAddress()+")");
-			String new_login = FormUtil.readString("Login ("+m.getLogin()+")");
-			String new_password = FormUtil.readString("Password ("+m.getPassword()+")");
-			
-			//Set new data
-			if(!new_name.equals(""))
+			System.out.println("Estate agent " + m.getName() + "  is being edited. Empty fields remain unchanged.");
+
+			// Get the new data
+			String new_name = FormUtil.readString("Name (" + m.getName() + ")");
+			String new_address = FormUtil.readString("Addresss (" + m.getAddress() + ")");
+			String new_login = FormUtil.readString("Login (" + m.getLogin() + ")");
+			// Check, ob das Login bereits benutzt wird
+			while (service.getEstateAgentByLogin(new_login) != null) {
+				System.out.println("Das Login wird bereits benutzt! Bitte versuchen Sie es erneut!");
+				new_login = FormUtil.readString("Login (" + m.getLogin() + ")");
+			}
+			String new_password = FormUtil.readString("Password (" + m.getPassword() + ")");
+
+			// Set new data
+			if (!new_name.equals(""))
 				m.setName(new_name);
-			if(!new_address.equals(""))
+			if (!new_address.equals(""))
 				m.setAddress(new_address);
-			if(!new_login.equals(""))
+			if (!new_login.equals(""))
 				m.setLogin(new_login);
-			if(!new_password.equals(""))
+			if (!new_password.equals(""))
 				m.setPassword(new_password);
+			service.updateEstateAgent(m);
 		}
-		
 	}
-	
+
 	/**
-	 *  Deletes an estate agent after the user has selected it.
+	 * Deletes an estate agent after the user has selected it.
 	 */
 	public void deleteEstateAgent() {
-		//Menu for selecting the estate agent
+		// Menu for selecting the estate agent
 		Menu maklerSelectionMenu = new EstateAgentSelectionMenu("Delete estate agent", service.getAllEstateAgents());
 		int id = maklerSelectionMenu.show();
-		
-		//If not selected "back", delete estate agent
-		if(id != EstateAgentSelectionMenu.BACK) {
+
+		// If not selected "back", delete estate agent
+		if (id != EstateAgentSelectionMenu.BACK) {
 			EstateAgent m = service.getEstateAgentByID(id);
 			service.deleteEstateAgent(m);
 		}

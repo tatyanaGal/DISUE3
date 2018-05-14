@@ -86,11 +86,34 @@ public class EstateEditor {
 	 */
 	public void newHouse() {
 		House h = new House();
+		String answer;
+
+		answer = FormUtil.readString("City");
+		// Check, ob die Eingabe leer ist
+		while (answer.isEmpty()) {
+			System.out.println("Die Eingabe kann nicht leer sein! Bitte versuchen Sie es erneut!");
+			answer = FormUtil.readString("City");
+		}
+		h.setCity(answer);
 		
-		h.setCity(FormUtil.readString("City"));
 		h.setPostalcode(FormUtil.readInt("Postalcode"));
-		h.setStreet(FormUtil.readString("Street"));
-		h.setStreetnumber(FormUtil.readString("Streetnumber"));
+		
+		answer = FormUtil.readString("Street");
+		// Check, ob die Eingabe leer ist
+		while (answer.isEmpty()) {
+			System.out.println("Die Eingabe kann nicht leer sein! Bitte versuchen Sie es erneut!");
+			answer = FormUtil.readString("Street");
+		}
+		h.setStreet(answer);
+		
+		answer = FormUtil.readString("Streetnumber");
+		// Check, ob die Eingabe leer ist
+		while (answer.isEmpty()) {
+			System.out.println("Die Eingabe kann nicht leer sein! Bitte versuchen Sie es erneut!");
+			answer = FormUtil.readString("Streetnumber");
+		}
+		h.setStreetnumber(answer);
+
 		h.setSquareArea(FormUtil.readInt("Square Area"));
 		h.setFloors(FormUtil.readInt("Floors"));
 		h.setPrice(FormUtil.readInt("Price"));
@@ -152,6 +175,7 @@ public class EstateEditor {
 				h.setPrice(newPrice);
 			
 			h.setGarden(newGarden);
+			service.updateEstate(h);
 		}
 	}
 	
@@ -179,11 +203,33 @@ public class EstateEditor {
 	 */
 	public void newAppartment() {
 		Apartment w = new Apartment();
+		String answer;
+
+		answer = FormUtil.readString("City");
+		// Check, ob die Eingabe leer ist
+		while (answer.isEmpty()) {
+			System.out.println("Die Eingabe kann nicht leer sein! Bitte versuchen Sie es erneut!");
+			answer = FormUtil.readString("City");
+		}
+		w.setCity(answer);
 		
-		w.setCity(FormUtil.readString("City"));
 		w.setPostalcode(FormUtil.readInt("Postalcode"));
-		w.setStreet(FormUtil.readString("Street"));
-		w.setStreetnumber(FormUtil.readString("Streetnumber"));
+		
+		answer = FormUtil.readString("Street");
+		// Check, ob die Eingabe leer ist
+		while (answer.isEmpty()) {
+			System.out.println("Die Eingabe kann nicht leer sein! Bitte versuchen Sie es erneut!");
+			answer = FormUtil.readString("Street");
+		}
+		w.setStreet(answer);
+		
+		answer = FormUtil.readString("Streetnumber");
+		// Check, ob die Eingabe leer ist
+		while (answer.isEmpty()) {
+			System.out.println("Die Eingabe kann nicht leer sein! Bitte versuchen Sie es erneut!");
+			answer = FormUtil.readString("Streetnumber");
+		}
+		w.setStreetnumber(answer);
 		w.setSquareArea(FormUtil.readInt("Square Area"));
 		w.setFloor(FormUtil.readInt("Floor"));
 		w.setRent(FormUtil.readInt("Rent"));
@@ -248,6 +294,7 @@ public class EstateEditor {
 			
 			w.setKitchen(newEbk);
 			w.setBalcony(newBalcony);
+			service.updateEstate(w);
 		}
 	}
 	
