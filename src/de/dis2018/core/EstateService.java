@@ -607,6 +607,8 @@ public class EstateService {
 		// TODO: This estate agent is kept in memory and the DB
 		//this.addEstateAgent(m);
 		session.save(m);
+		
+		
 		session.getTransaction().commit();
 
 		session.beginTransaction();
