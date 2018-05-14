@@ -4,12 +4,11 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class name="de.dis2018.data.Person" table="person">
-		<id name="id" type="int" column="person_id">
+		<id name="id" type="integer" column="id">
 			<generator class="increment" />
 		</id>
 		<property name="firstname" type="string" column="firstname" />
 		<property name="name" type="string" column="name" />
 		<property name="address" type="string" column="address" />
-	
 	</class>
 </hibernate-mapping>

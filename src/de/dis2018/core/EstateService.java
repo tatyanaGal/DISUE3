@@ -8,6 +8,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.exception.ConstraintViolationException;
 
 import de.dis2018.data.House;
 import de.dis2018.data.Estate;
@@ -114,7 +115,7 @@ public class EstateService {
 		session.save(ea);
 		session.getTransaction().commit();
 	}
-	
+
 	/**
 	 * Update an estate agent
 	 * 
@@ -126,7 +127,7 @@ public class EstateService {
 		session.beginTransaction();
 		session.update(ea);
 		session.getTransaction().commit();
-		
+
 	}
 
 	/**
@@ -154,7 +155,7 @@ public class EstateService {
 		session.save(p);
 		session.getTransaction().commit();
 	}
-	
+
 	/**
 	 * Update an estate agent
 	 * 
@@ -166,7 +167,7 @@ public class EstateService {
 		session.beginTransaction();
 		session.update(p);
 		session.getTransaction().commit();
-		
+
 	}
 
 	/**
@@ -206,7 +207,7 @@ public class EstateService {
 		session.save(h);
 		session.getTransaction().commit();
 	}
-	
+
 	/**
 	 * Update an estate
 	 * 
@@ -218,7 +219,7 @@ public class EstateService {
 		session.beginTransaction();
 		session.update(e);
 		session.getTransaction().commit();
-		
+
 	}
 
 	/**
@@ -246,10 +247,10 @@ public class EstateService {
 		//
 		Session session = sessionFactory.getCurrentSession();
 		session.beginTransaction();
-			@SuppressWarnings("unchecked")
+		@SuppressWarnings("unchecked")
 		List<House> houses = (List<House>) session
-				.createQuery("from House h where h.id in (select id from Estate e where e.manager = :man)").setParameter("man", ea)
-				.list();
+				.createQuery("from House h where h.id in (select id from Estate e where e.manager = :man)")
+				.setParameter("man", ea).list();
 		session.getTransaction().commit();
 		return houses;
 	}
@@ -372,10 +373,15 @@ public class EstateService {
 	 *            The tenancy contract
 	 */
 	public void addTenancyContract(TenancyContract t) {
-		Session session = sessionFactory.getCurrentSession();
-		session.beginTransaction();
-		session.save(t);
-		session.getTransaction().commit();
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			session.beginTransaction();
+			session.save(t);
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			System.out.println("Für diese Wohnung existiert bereits ein Vertrag. Versuchen Sie es mit einer anderen!");
+		}
+
 	}
 
 	/**
@@ -385,10 +391,14 @@ public class EstateService {
 	 *            The purchase contract
 	 */
 	public void addPurchaseContract(PurchaseContract p) {
-		Session session = sessionFactory.getCurrentSession();
-		session.beginTransaction();
-		session.save(p);
-		session.getTransaction().commit();
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			session.beginTransaction();
+			session.save(p);
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			System.out.println("Für diese Wohnung existiert bereits ein Vertrag. Versuchen Sie es mit einer anderen!");
+		}
 	}
 
 	/**
@@ -405,6 +415,7 @@ public class EstateService {
 		session.getTransaction().commit();
 		return tenancy;
 	}
+
 	/**
 	 * Finds a tenancy contract with a given Contract number
 	 * 
@@ -412,12 +423,12 @@ public class EstateService {
 	 *            Die Contract nummer
 	 * @return The tenancy contract or zero if not found
 	 */
-	public TenancyContract getTenancyContractByContractNo(int id) {
+	public TenancyContract getTenancyContractByApartment(Apartment a) {
 
 		Session session = sessionFactory.getCurrentSession();
 		session.beginTransaction();
-		TenancyContract tenancy = (TenancyContract) session.createQuery("from TenancyContract where contractNo = :num")
-				.setParameter("num", id);
+		TenancyContract tenancy = (TenancyContract) session.createQuery("from TenancyContract where apartment = :num")
+				.setParameter("num", a);
 		session.getTransaction().commit();
 		return tenancy;
 	}
@@ -436,6 +447,7 @@ public class EstateService {
 		session.getTransaction().commit();
 		return purchase;
 	}
+
 	/**
 	 * Finds a purchase contract with a given ID
 	 * 
@@ -443,12 +455,12 @@ public class EstateService {
 	 *            Die ID
 	 * @return The purchase contract or zero if not found
 	 */
-	public PurchaseContract getPurchaseContractByContractNo(int id) {
+	public PurchaseContract getPurchaseContractByHouse(House h) {
 
 		Session session = sessionFactory.getCurrentSession();
 		session.beginTransaction();
-		PurchaseContract purchase = (PurchaseContract) session.createQuery("from PurchaseContract where contractNo = :num")
-				.setParameter("num", id);
+		PurchaseContract purchase = (PurchaseContract) session
+				.createQuery("from PurchaseContract where house = :num").setParameter("num", h);
 		session.getTransaction().commit();
 		return purchase;
 	}
@@ -471,21 +483,19 @@ public class EstateService {
 		// return ret;
 		///// TODO
 		// "select * from House h join h.id Estate where Estate.manager := manager"
-		
-//		String query_findByProductDepartmentHospital = "select location from ProductInstallLocation location "
-//	            + " join location.product prod " + " join location.department dep "
-//	            + " join location.department.hospital hos " + " where  prod.name = :product "
-//	            + " and dep.name.name = :department " + " and hos.name = :hospital ";
-//		"select * from Contract c join c.apartment t where  " 
 
-		
-		
+		// String query_findByProductDepartmentHospital = "select location from
+		// ProductInstallLocation location "
+		// + " join location.product prod " + " join location.department dep "
+		// + " join location.department.hospital hos " + " where prod.name = :product "
+		// + " and dep.name.name = :department " + " and hos.name = :hospital ";
+		// "select * from Contract c join c.apartment t where "
+
 		Session session = sessionFactory.getCurrentSession();
 		session.beginTransaction();
 		@SuppressWarnings("unchecked")
-		List<TenancyContract> tenancies = (List<TenancyContract>) session
-				
-				.createQuery("from TenancyContract t where t.apartment in (select id from Estate e where e.manager = :man)")
+		List<TenancyContract> tenancies = (List<TenancyContract>) session.createQuery(
+				"from TenancyContract t where t.apartment in (select e.id from Estate e where e.manager = :man)")
 				.setParameter("man", ea).list();
 		session.getTransaction().commit();
 		return tenancies;
@@ -513,7 +523,8 @@ public class EstateService {
 		session.beginTransaction();
 		@SuppressWarnings("unchecked")
 		List<PurchaseContract> purchases = (List<PurchaseContract>) session
-				.createQuery("from PurchaseContract p where p.house in (select id from Estate e where e.manager = :man)")
+				.createQuery(
+						"from PurchaseContract p where p.house in (select e.id from Estate e where e.manager = :man)")
 				.setParameter("man", ea).list();
 		session.getTransaction().commit();
 		return purchases;
@@ -616,10 +627,9 @@ public class EstateService {
 		m.setPassword("max");
 
 		// TODO: This estate agent is kept in memory and the DB
-		//this.addEstateAgent(m);
+		// this.addEstateAgent(m);
 		session.save(m);
-		
-		
+
 		session.getTransaction().commit();
 
 		session.beginTransaction();
@@ -638,8 +648,8 @@ public class EstateService {
 		session.save(p2);
 
 		// TODO: These persons are kept in memory and the DB
-		//this.addPerson(p1);
-		//this.addPerson(p2);
+		// this.addPerson(p1);
+		// this.addPerson(p2);
 		session.getTransaction().commit();
 
 		session.beginTransaction();
@@ -657,7 +667,7 @@ public class EstateService {
 		session.save(h);
 
 		// TODO: This house is held in memory and the DB
-		//this.addHouse(h);
+		// this.addHouse(h);
 		session.getTransaction().commit();
 
 		// Create Hibernate Session
@@ -684,7 +694,7 @@ public class EstateService {
 		w.setKitchen(true);
 		w.setBalcony(false);
 		w.setmanager(m);
-		//this.addApartment(w);
+		this.addApartment(w);
 
 		w = new Apartment();
 		w.setCity("Berlin");
@@ -697,7 +707,7 @@ public class EstateService {
 		w.setKitchen(true);
 		w.setBalcony(false);
 		w.setmanager(m);
-		//this.addApartment(w);
+		this.addApartment(w);
 
 		PurchaseContract pc = new PurchaseContract();
 		pc.setHouse(h);
@@ -707,7 +717,7 @@ public class EstateService {
 		pc.setPlace("Hamburg");
 		pc.setNoOfInstallments(5);
 		pc.setIntrestRate(4);
-		//this.addPurchaseContract(pc);
+		this.addPurchaseContract(pc);
 
 		TenancyContract tc = new TenancyContract();
 		tc.setApartment(w);
@@ -718,6 +728,6 @@ public class EstateService {
 		tc.setStartDate(new Date(System.currentTimeMillis()));
 		tc.setAdditionalCosts(65);
 		tc.setDuration(36);
-//		this.addTenancyContract(tc);
+		this.addTenancyContract(tc);
 	}
 }

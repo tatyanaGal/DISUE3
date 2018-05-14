@@ -1,6 +1,5 @@
 package de.dis2018.data;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import de.dis2018.util.Helper;

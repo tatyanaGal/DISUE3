@@ -120,58 +120,58 @@ public class ContractEditor {
 
 		// If no abort: Selection of the person
 		if (wid != AppartmentSelectionMenu.BACK) {
-			// Load all persons
-			List<Person> personen = service.getAllPersons();
+			// Check, ob ein Contract für diese Wohnung bereits existiert
+			//if (service.getTenancyContractByApartment(service.getApartmentByID(wid)) == null) {
 
-			// Menu to select the person
-			PersonSelectionMenu psm = new PersonSelectionMenu("Select person for contract", personen);
-			int pid = psm.show();
+				// Load all persons
+				List<Person> personen = service.getAllPersons();
 
-			// If no abort: Request contract data and create contract
-			if (pid != PersonSelectionMenu.BACK) {
-				TenancyContract m = new TenancyContract();
+				// Menu to select the person
+				PersonSelectionMenu psm = new PersonSelectionMenu("Select person for contract", personen);
+				int pid = psm.show();
 
-				m.setApartment(service.getApartmentByID(wid));
-				m.setContractPartner(service.getPersonById(pid));
+				// If no abort: Request contract data and create contract
+				if (pid != PersonSelectionMenu.BACK) {
+					TenancyContract m = new TenancyContract();
 
-//				int contract;
-//				contract = FormUtil.readInt("Contract No");
-//				// Check, ob die Contract number schon existiert
-//				while (service.getTenancyContractByContractNo(contract) != null) {
-//					System.out.println("Die Contract number wird bereits benutzt! Versuchen Sie es erneut!");
-//					contract = FormUtil.readInt("Contract No");
-//				}
-				m.setContractNo(FormUtil.readInt("Contract No"));
+					m.setApartment(service.getApartmentByID(wid));
+					m.setContractPartner(service.getPersonById(pid));
 
-				java.util.Date first = FormUtil.readDate("Date (dd.MM.yyyy)");
-				m.setDate(first);
+					m.setContractNo(FormUtil.readInt("Contract No"));
 
-				String answer;
+					java.util.Date first = FormUtil.readDate("Date (dd.MM.yyyy)");
+					m.setDate(first);
 
-				answer = FormUtil.readString("City");
-				// Check, ob die Eingabe leer ist
-				while (answer.isEmpty()) {
-					System.out.println("Die Eingabe kann nicht leer sein! Bitte versuchen Sie es erneut!");
+					String answer;
+
 					answer = FormUtil.readString("City");
+					// Check, ob die Eingabe leer ist
+					while (answer.isEmpty()) {
+						System.out.println("Die Eingabe kann nicht leer sein! Bitte versuchen Sie es erneut!");
+						answer = FormUtil.readString("City");
+					}
+					m.setPlace(answer);
+
+					// Check, ob das Vertragsdatum später als Startdatum ist
+					java.util.Date second = FormUtil.readDate("Start Date (dd.MM.yyyy)");
+					while (first.after(second)) {
+						System.out.println(
+								"Das von Ihnen eingegebene Datum ist inkorrekt! Das Startdatum kann nicht vor dem Vertragsdatum liegen. Versuchen Sie es erneut! \n");
+						second = FormUtil.readDate("Start Date (dd.MM.yyyy)");
+					}
+					m.setStartDate(second);
+
+					m.setDuration(FormUtil.readInt("Duration in months"));
+					m.setAdditionalCosts(FormUtil.readInt("Additional Costs"));
+
+					service.addTenancyContract(m);
+
+					System.out.println("Tenancy contract with the ID " + m.getId() + " was created");
 				}
-				m.setPlace(answer);
-
-				// Check, ob das Vertragsdatum später als Startdatum ist
-				java.util.Date second = FormUtil.readDate("Start Date (dd.MM.yyyy)");
-				while (first.after(second)) {
-					System.out.println(
-							"Das von Ihnen eingegebene Datum ist inkorrekt! Das Startdatum kann nicht vor dem Vertragsdatum liegen. Versuchen Sie es erneut! \n");
-					second = FormUtil.readDate("Start Date (dd.MM.yyyy)");
-				}
-				m.setStartDate(second);
-
-				m.setDuration(FormUtil.readInt("Duration in months"));
-				m.setAdditionalCosts(FormUtil.readInt("Additional Costs"));
-
-				service.addTenancyContract(m);
-
-				System.out.println("Tenancy contract with the ID " + m.getId() + " was created");
-			}
+			//} else {
+				//System.out.println(
+					//	"Für diese Wohnung existiert bereits ein Vertrag. Versuchen Sie es mit einer anderen!");
+		//	}
 		}
 	}
 
@@ -188,48 +188,53 @@ public class ContractEditor {
 
 		// If no abort: Selection of the person
 		if (hid != HouseSelectionMenu.BACK) {
-			// Load all persons
-			List<Person> personen = service.getAllPersons();
+			//if (service.getPurchaseContractByHouse(service.getHouseById(hid)) == null) {
+				// Load all persons
+				List<Person> personen = service.getAllPersons();
 
-			// Menu to select the person
-			PersonSelectionMenu psm = new PersonSelectionMenu("Select person for contract", personen);
-			int pid = psm.show();
+				// Menu to select the person
+				PersonSelectionMenu psm = new PersonSelectionMenu("Select person for contract", personen);
+				int pid = psm.show();
 
-			// If no abort: Request contract data and create contract
-			if (pid != PersonSelectionMenu.BACK) {
-				PurchaseContract k = new PurchaseContract();
+				// If no abort: Request contract data and create contract
+				if (pid != PersonSelectionMenu.BACK) {
+					PurchaseContract k = new PurchaseContract();
 
-				k.setHouse(service.getHouseById(hid));
-				k.setContractPartner(service.getPersonById(pid));
+					k.setHouse(service.getHouseById(hid));
+					k.setContractPartner(service.getPersonById(pid));
 
-//				int contract;
-//				contract = FormUtil.readInt("Contract No");
-//				// Check, ob die Contract number schon existiert
-//				while (service.getPurchaseContractByContractNo(contract) != null) {
-//					System.out.println("Die Contract number wird bereits benutzt! Versuchen Sie es erneut!");
-//					contract = FormUtil.readInt("Contract No");
-//				}
-				k.setContractNo(FormUtil.readInt("Contract No"));
+					// int contract;
+					// contract = FormUtil.readInt("Contract No");
+					// // Check, ob die Contract number schon existiert
+					// while (service.getPurchaseContractByContractNo(contract) != null) {
+					// System.out.println("Die Contract number wird bereits benutzt! Versuchen Sie
+					// es erneut!");
+					// contract = FormUtil.readInt("Contract No");
+					// }
+					k.setContractNo(FormUtil.readInt("Contract No"));
 
-				k.setDate(FormUtil.readDate("Date (dd.MM.yyyy)"));
+					k.setDate(FormUtil.readDate("Date (dd.MM.yyyy)"));
 
-				String answer;
+					String answer;
 
-				answer = FormUtil.readString("City");
-				// Check, ob die Eingabe leer ist
-				while (answer.isEmpty()) {
-					System.out.println("Die Eingabe kann nicht leer sein! Bitte versuchen Sie es erneut!");
 					answer = FormUtil.readString("City");
+					// Check, ob die Eingabe leer ist
+					while (answer.isEmpty()) {
+						System.out.println("Die Eingabe kann nicht leer sein! Bitte versuchen Sie es erneut!");
+						answer = FormUtil.readString("City");
+					}
+					k.setPlace(answer);
+
+					k.setNoOfInstallments(FormUtil.readInt("No Of Installments"));
+					k.setIntrestRate(FormUtil.readInt("Intrest Rate"));
+
+					service.addPurchaseContract(k);
+
+					System.out.println("Purchase contract with the ID " + k.getId() + " was created.");
 				}
-				k.setPlace(answer);
-
-				k.setNoOfInstallments(FormUtil.readInt("No Of Installments"));
-				k.setIntrestRate(FormUtil.readInt("Intrest Rate"));
-
-				service.addPurchaseContract(k);
-
-				System.out.println("Purchase contract with the ID " + k.getId() + " was created.");
-			}
+			//} else {
+				//System.out.println("Für dieses Haus existiert bereits ein Vertrag. Versuchen Sie es mit einer anderen!");
+			//}
 		}
 	}
 }

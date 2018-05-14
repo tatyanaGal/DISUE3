@@ -11,13 +11,13 @@
 		<property name="contractNo" type="int" column="contractNo" not-null="true"/>
 		<property name="date" type="java.util.Date" column="date" not-null="true"/>
 		<property name="place" type="string" column="place" not-null="true"/>
-		<many-to-one name="contractPartner" class="de.dis2018.data.Person" column="contractpartner" not-null="true" />
+		<many-to-one name="contractPartner" class="de.dis2018.data.Person" column="contractpartner" not-null="true" lazy="false" cascade="all" />
 		
 		<joined-subclass name="de.dis2018.data.PurchaseContract" extends="de.dis2018.data.Contract" table="purchasecontract">
 		<key column="id"/>
 			<property name="noOfInstallments" type="integer" column="noOfInstallments" />
 			<property name="intrestRate" type="integer" column="intrestRate" />
-			<one-to-one name="house" class="de.dis2018.data.House" cascade="save-update" />
+			<many-to-one name="house" class="de.dis2018.data.House" column="house" not-null="true" cascade="all" unique="true" lazy="false" />
 		</joined-subclass>
 		
 		<joined-subclass name="de.dis2018.data.TenancyContract" extends="de.dis2018.data.Contract" table="tenancycontract">
@@ -25,7 +25,7 @@
 			<property name="startDate" type="java.util.Date" column="startDate" />
 			<property name="duration" type="integer" column="duration" />
 			<property name="additionalCosts" type="integer" column="additionalCosts" />
-			<one-to-one name="apartment" class="de.dis2018.data.Apartment" cascade="save-update"/>
+			<many-to-one name="apartment" class="de.dis2018.data.Apartment" column="apartment" not-null="true" cascade="all" unique="true" lazy="false" />
 		</joined-subclass>
 		
 		

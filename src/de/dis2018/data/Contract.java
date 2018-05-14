@@ -13,7 +13,7 @@ public abstract class Contract {
 	private String place;
 	static int currentId = 0;
 	int id;
-	Person contractPartner;
+	private Person contractPartner;
 	
 	public Contract() {
 		this.id = currentId++;

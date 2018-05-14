@@ -10,7 +10,7 @@ public class Person {
 	private String firstname;
 	private String name;
 	private String address;
-	//static int currentId = 0;
+	static int currentId = 0;
 	
 	public Person() {
 	}
