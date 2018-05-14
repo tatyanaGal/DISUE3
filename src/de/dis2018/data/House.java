@@ -53,7 +53,7 @@ public class House extends Estate {
 	
 		House other = (House)obj;
 	
-		if(other.getId() != getId() ||
+		if(other.getid() != getid() ||
 				other.getPostalcode() != getPostalcode() ||
 				other.getSquareArea() != getSquareArea() ||
 				!Helper.compareObjects(this.getCity(), other.getCity()) ||

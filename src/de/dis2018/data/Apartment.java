@@ -70,7 +70,7 @@ public class Apartment extends Estate {
 	
 		Apartment other = (Apartment)obj;
 	
-		if(other.getId() != getId() ||
+		if(other.getid() != getid() ||
 				other.getPostalcode() != getPostalcode() ||
 				other.getSquareArea() != getSquareArea() ||
 				!Helper.compareObjects(this.getCity(), other.getCity()) ||

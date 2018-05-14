@@ -95,7 +95,7 @@ public class EstateAgentEditor {
 		m.setPassword(answer);
 		service.addEstateAgent(m);
 
-		System.out.println("Estate agent with ID " + m.getId() + " was created.");
+		System.out.println("Estate agent with ID " + m.getid() + " was created.");
 	}
 
 	/**

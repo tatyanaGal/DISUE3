@@ -17,7 +17,9 @@
 			column="squareArea" />
 
 		<many-to-one name="manager"
-			class="de.dis2018.data.EstateAgent" column="manager" not-null="true" />
+			class="de.dis2018.data.EstateAgent">
+			<column name="manager" not-null="true" />
+		</many-to-one>
 
 		<joined-subclass name="de.dis2018.data.House"
 			extends="de.dis2018.data.Estate" table="house">

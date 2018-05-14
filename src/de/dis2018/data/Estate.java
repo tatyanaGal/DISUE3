@@ -19,10 +19,10 @@ public abstract class Estate {
 		this.id = currentId++;
 	}
 	
-	public int getId() {
+	public int getid() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setid(int id) {
 		this.id = id;
 	}
 	public String getCity() {
@@ -56,11 +56,11 @@ public abstract class Estate {
 		this.squareArea = squareArea;
 	}
 	
-	public void setManager(EstateAgent manager) {
+	public void setmanager(EstateAgent manager) {
 		this.manager = manager;
 	}
 
-	public EstateAgent getManager() {
+	public EstateAgent getmanager() {
 		return manager;
 	}
 
@@ -84,7 +84,7 @@ public abstract class Estate {
 	
 		Estate other = (Estate)obj;
 	
-		if(other.getId() != getId() ||
+		if(other.getid() != getid() ||
 				other.getPostalcode() != getPostalcode() ||
 				other.getSquareArea() != getSquareArea() ||
 				!Helper.compareObjects(this.getCity(), other.getCity()) ||

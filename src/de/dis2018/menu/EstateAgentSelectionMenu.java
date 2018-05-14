@@ -17,7 +17,7 @@ public class EstateAgentSelectionMenu extends Menu {
 		Iterator<EstateAgent> it = list.iterator();
 		while(it.hasNext()) {
 			EstateAgent m = it.next();
-			addEntry(m.getName(), m.getId());
+			addEntry(m.getName(), m.getid());
 		}
 		addEntry("Back", BACK);
 	}

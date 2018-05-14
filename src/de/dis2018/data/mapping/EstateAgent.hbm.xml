@@ -12,12 +12,12 @@
 		<property name="login" type="string" column="login" unique="true" not-null="true"/>
 		<property name="password" type="string" column="password" not-null="true"/>
 
-		<set name="estates" table="Estate" inverse="true" lazy="true"
-			fetch="select">
+		<set name="estates" cascade="all" table="estate" inverse="true">
 			<key>
-				<column name="manager" />
+				<column name="manager"/>
 			</key>
 			<one-to-many class="de.dis2018.data.Estate" />
 		</set>
+		
 	</class>
 </hibernate-mapping>

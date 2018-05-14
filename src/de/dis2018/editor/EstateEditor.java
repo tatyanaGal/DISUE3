@@ -118,7 +118,7 @@ public class EstateEditor {
 		h.setFloors(FormUtil.readInt("Floors"));
 		h.setPrice(FormUtil.readInt("Price"));
 		h.setGarden(FormUtil.readBoolean("Garden"));
-		h.setManager(this.manager);
+		h.setmanager(this.manager);
 		
 		service.addHouse(h);
 	}
@@ -235,7 +235,7 @@ public class EstateEditor {
 		w.setRent(FormUtil.readInt("Rent"));
 		w.setKitchen(FormUtil.readBoolean("Kitchen"));
 		w.setBalcony(FormUtil.readBoolean("Balcony"));
-		w.setManager(this.manager);
+		w.setmanager(this.manager);
 		
 		service.addApartment(w);
 	}

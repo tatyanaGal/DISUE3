@@ -1,5 +1,6 @@
 package de.dis2018.data;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import de.dis2018.util.Helper;
@@ -19,11 +20,11 @@ public class EstateAgent {
 	public EstateAgent() {
 	}
 	
-	public int getId() {
+	public int getid() {
 		return id;
 	}
 	
-	public void setId(int id) {
+	public void setid(int id) {
 		this.id = id;
 	}
 	
@@ -88,7 +89,7 @@ public class EstateAgent {
 	
 		EstateAgent other = (EstateAgent)obj;
 	
-		if(other.getId() != getId() ||
+		if(other.getid() != getid() ||
 				!Helper.compareObjects(getName(), other.getName()) ||
 				!Helper.compareObjects(getAddress(), other.getAddress()) ||
 				!Helper.compareObjects(getLogin(), other.getLogin()) ||

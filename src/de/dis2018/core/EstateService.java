@@ -258,14 +258,12 @@ public class EstateService {
 		// where c.userAccount.email = :email
 		// and cphones.formatedNumber = :number
 		//
-
 		Session session = sessionFactory.getCurrentSession();
 		session.beginTransaction();
-		@SuppressWarnings("unchecked")
+			@SuppressWarnings("unchecked")
 		List<House> houses = (List<House>) session
-				.createQuery("FROM House h JOIN Estate e ON h.id = e.id WHERE e.manager =:manager")
-				//.createQuery("from House h JOIN h.manager man WHERE man.manager =: manager")
-				.setParameter("manager", ea.getId()).list();
+				.createQuery("from House h where h.id in (select id from Estate e where e.manager = :man)").setParameter("man", ea)
+				.list();
 		session.getTransaction().commit();
 		return houses;
 	}
@@ -340,8 +338,8 @@ public class EstateService {
 		session.beginTransaction();
 		@SuppressWarnings("unchecked")
 		List<Apartment> apartments = (List<Apartment>) session
-				.createQuery("FROM Apartment a JOIN Estate e ON a.id = e.id WHERE e.manager =:manager")
-				.setParameter("manager", ea.getId()).list();
+				.createQuery("from Apartment a where a.id in (select id from Estate e where e.manager = :man)")
+				.setParameter("man", ea).list();
 		session.getTransaction().commit();
 		return apartments;
 	}
@@ -475,8 +473,9 @@ public class EstateService {
 		session.beginTransaction();
 		@SuppressWarnings("unchecked")
 		List<TenancyContract> tenancies = (List<TenancyContract>) session
-				.createQuery("from Contract c join Estate e on c.apartment=e.id where e.manager =:manager")
-				.setParameter("manager", ea.getId()).list();
+				
+				.createQuery("from TenancyContract t where t.apartment in (select id from Estate e where e.manager = :man)")
+				.setParameter("man", ea).list();
 		session.getTransaction().commit();
 		return tenancies;
 
@@ -503,8 +502,8 @@ public class EstateService {
 		session.beginTransaction();
 		@SuppressWarnings("unchecked")
 		List<PurchaseContract> purchases = (List<PurchaseContract>) session
-				.createQuery("from Contract c join Estate e on c.house=e.id where e.manager =:manager")
-				.setParameter("manager", ea.getId()).list();
+				.createQuery("from PurchaseContract p where p.house in (select id from Estate e where e.manager = :man)")
+				.setParameter("man", ea).list();
 		session.getTransaction().commit();
 		return purchases;
 	}
@@ -640,7 +639,7 @@ public class EstateService {
 		h.setFloors(5);
 		h.setPrice(10000000);
 		h.setGarden(true);
-		h.setManager(m);
+		h.setmanager(m);
 
 		session.save(h);
 
@@ -651,7 +650,7 @@ public class EstateService {
 		// Create Hibernate Session
 		session = sessionFactory.openSession();
 		session.beginTransaction();
-		EstateAgent m2 = (EstateAgent) session.get(EstateAgent.class, m.getId());
+		EstateAgent m2 = (EstateAgent) session.get(EstateAgent.class, m.getid());
 		Set<Estate> immos = m2.getEstates();
 		Iterator<Estate> it = immos.iterator();
 
@@ -671,7 +670,7 @@ public class EstateService {
 		w.setRent(790);
 		w.setKitchen(true);
 		w.setBalcony(false);
-		w.setManager(m);
+		w.setmanager(m);
 		//this.addApartment(w);
 
 		w = new Apartment();
@@ -684,28 +683,28 @@ public class EstateService {
 		w.setRent(790);
 		w.setKitchen(true);
 		w.setBalcony(false);
-		w.setManager(m);
+		w.setmanager(m);
 		//this.addApartment(w);
 
-//		PurchaseContract pc = new PurchaseContract();
-//		pc.setHouse(h);
-//		pc.setContractPartner(p1);
-//		pc.setContractNo(9234);
-//		pc.setDate(new Date(System.currentTimeMillis()));
-//		pc.setPlace("Hamburg");
-//		pc.setNoOfInstallments(5);
-//		pc.setIntrestRate(4);
-//		this.addPurchaseContract(pc);
-//
-//		TenancyContract tc = new TenancyContract();
-//		tc.setApartment(w);
-//		tc.setContractPartner(p2);
-//		tc.setContractNo(23112);
-//		tc.setDate(new Date(System.currentTimeMillis() - 1000000000));
-//		tc.setPlace("Berlin");
-//		tc.setStartDate(new Date(System.currentTimeMillis()));
-//		tc.setAdditionalCosts(65);
-//		tc.setDuration(36);
+		PurchaseContract pc = new PurchaseContract();
+		pc.setHouse(h);
+		pc.setContractPartner(p1);
+		pc.setContractNo(9234);
+		pc.setDate(new Date(System.currentTimeMillis()));
+		pc.setPlace("Hamburg");
+		pc.setNoOfInstallments(5);
+		pc.setIntrestRate(4);
+		//this.addPurchaseContract(pc);
+
+		TenancyContract tc = new TenancyContract();
+		tc.setApartment(w);
+		tc.setContractPartner(p2);
+		tc.setContractNo(23112);
+		tc.setDate(new Date(System.currentTimeMillis() - 1000000000));
+		tc.setPlace("Berlin");
+		tc.setStartDate(new Date(System.currentTimeMillis()));
+		tc.setAdditionalCosts(65);
+		tc.setDuration(36);
 //		this.addTenancyContract(tc);
 	}
 }
