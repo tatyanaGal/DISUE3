@@ -9,6 +9,7 @@ public class House extends Estate {
 	private int floors;
 	private int price;
 	private boolean garden;
+
 	
 	public House() {
 		super();
@@ -68,4 +69,5 @@ public class House extends Estate {
 		
 		return true;
 	}
+
 }

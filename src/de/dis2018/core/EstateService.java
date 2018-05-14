@@ -66,20 +66,6 @@ public class EstateService {
 	 */
 
 	public EstateAgent getEstateAgentByLogin(String login) {
-		// Transaction tx;
-		// try {
-		// tx = sess.beginTransaction();
-		// //do some work
-		// ...
-		// tx.commit();
-		// }
-		// catch (Exception e) {
-		// if (tx!=null) tx.rollback();
-		// throw e;
-		// }
-		// finally {
-		// sess.close();
-		// }
 		Session session = sessionFactory.getCurrentSession();
 		session.beginTransaction();
 		EstateAgent agent = (EstateAgent) session.createQuery("from EstateAgent where login = :login ")
@@ -413,16 +399,25 @@ public class EstateService {
 	 * @return The tenancy contract or zero if not found
 	 */
 	public TenancyContract getTenancyContractByID(int id) {
-		// Iterator<TenancyContract> it = tenancyContracts.iterator();
-		// while (it.hasNext()) {
-		// TenancyContract m = it.next();
-		// if (m.getId() == id)
-		// return m;
-		// }
-		// return null;
 		Session session = sessionFactory.getCurrentSession();
 		session.beginTransaction();
 		TenancyContract tenancy = (TenancyContract) session.get(TenancyContract.class, id);
+		session.getTransaction().commit();
+		return tenancy;
+	}
+	/**
+	 * Finds a tenancy contract with a given Contract number
+	 * 
+	 * @param id
+	 *            Die Contract nummer
+	 * @return The tenancy contract or zero if not found
+	 */
+	public TenancyContract getTenancyContractByContractNo(int id) {
+
+		Session session = sessionFactory.getCurrentSession();
+		session.beginTransaction();
+		TenancyContract tenancy = (TenancyContract) session.createQuery("from TenancyContract where contractNo = :num")
+				.setParameter("num", id);
 		session.getTransaction().commit();
 		return tenancy;
 	}
@@ -438,6 +433,22 @@ public class EstateService {
 		Session session = sessionFactory.getCurrentSession();
 		session.beginTransaction();
 		PurchaseContract purchase = (PurchaseContract) session.get(PurchaseContract.class, id);
+		session.getTransaction().commit();
+		return purchase;
+	}
+	/**
+	 * Finds a purchase contract with a given ID
+	 * 
+	 * @param id
+	 *            Die ID
+	 * @return The purchase contract or zero if not found
+	 */
+	public PurchaseContract getPurchaseContractByContractNo(int id) {
+
+		Session session = sessionFactory.getCurrentSession();
+		session.beginTransaction();
+		PurchaseContract purchase = (PurchaseContract) session.createQuery("from PurchaseContract where contractNo = :num")
+				.setParameter("num", id);
 		session.getTransaction().commit();
 		return purchase;
 	}

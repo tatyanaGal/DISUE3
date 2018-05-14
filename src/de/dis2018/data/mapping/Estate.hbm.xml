@@ -27,6 +27,7 @@
 			<property name="floors" type="integer" column="floors" />
 			<property name="price" type="integer" column="price" />
 			<property name="garden" type="boolean" column="garden" />
+			
 		</joined-subclass>
 
 		<joined-subclass name="de.dis2018.data.Apartment"
@@ -37,6 +38,7 @@
 			<property name="rooms" type="integer" column="rooms" />
 			<property name="balcony" type="boolean" column="balcony" />
 			<property name="kitchen" type="boolean" column="kitchen" />
+			
 		</joined-subclass>
 
 

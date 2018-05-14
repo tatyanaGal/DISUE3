@@ -13,6 +13,7 @@ public class Apartment extends Estate {
 	private boolean balcony;
 	private boolean kitchen;
 	
+	
 	public Apartment() {
 		super();
 	}
@@ -87,4 +88,5 @@ public class Apartment extends Estate {
 		
 		return true;
 	}
+
 }

@@ -8,7 +8,7 @@
 			<generator class="increment" />
 		</id>
 		
-		<property name="contractNo" type="int" column="contractNo" unique="true" not-null="true"/>
+		<property name="contractNo" type="int" column="contractNo" not-null="true"/>
 		<property name="date" type="java.util.Date" column="date" not-null="true"/>
 		<property name="place" type="string" column="place" not-null="true"/>
 		<many-to-one name="contractPartner" class="de.dis2018.data.Person" column="contractpartner" not-null="true" />
@@ -17,8 +17,7 @@
 		<key column="id"/>
 			<property name="noOfInstallments" type="integer" column="noOfInstallments" />
 			<property name="intrestRate" type="integer" column="intrestRate" />
-			<property name="house" type="integer" column="house" />
-			<many-to-one name="contractPartner" class="de.dis2018.data.Person" column="contractpartner" not-null="true" />
+			<one-to-one name="house" class="de.dis2018.data.House" cascade="save-update" />
 		</joined-subclass>
 		
 		<joined-subclass name="de.dis2018.data.TenancyContract" extends="de.dis2018.data.Contract" table="tenancycontract">
@@ -26,8 +25,7 @@
 			<property name="startDate" type="java.util.Date" column="startDate" />
 			<property name="duration" type="integer" column="duration" />
 			<property name="additionalCosts" type="integer" column="additionalCosts" />
-			<property name="apartment" type="integer" column="apartment" />
-			<many-to-one name="contractPartner" class="de.dis2018.data.Person" column="contractpartner" not-null="true" />
+			<one-to-one name="apartment" class="de.dis2018.data.Apartment" cascade="save-update"/>
 		</joined-subclass>
 		
 		

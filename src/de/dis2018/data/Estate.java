@@ -15,6 +15,7 @@ public abstract class Estate {
 	private EstateAgent manager;
 	static int currentId = 0;
 	
+	
 	public Estate() {
 		this.id = currentId++;
 	}
